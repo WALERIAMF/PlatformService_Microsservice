@@ -16,12 +16,23 @@ namespace PlataformService.Data.Mapping
                 .HasMaxLength(100)
                 .IsRequired()
                 .HasColumnType("varchar");
+
             builder.Property(p => p.Publisher)
                 .HasMaxLength(100)
                 .IsRequired()
                 .HasColumnType("varchar");
+
             builder.Property(p => p.Cost)
-                .HasColumnType("decimal(5, 2)");
+                .HasColumnType("decimal(10, 2)");
+
+            builder.Property(p => p.DataCriacao)
+                  .HasColumnType("datetime2")
+                  .HasPrecision(0);
+
+            builder.Property(p => p.DataAtualizacao)
+                .HasColumnType("datetime2")
+                .HasPrecision(0);
+
         }
     }
 }

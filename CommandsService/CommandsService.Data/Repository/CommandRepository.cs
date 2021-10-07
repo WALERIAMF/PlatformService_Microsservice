@@ -16,7 +16,7 @@ namespace CommandsService.Data.Repository
             _context = context;
         }
 
-        public void CreateCommand(int platformId, Command command)
+        public void CreateCommand(Guid platformId, Command command)
         {
             if (command == null)
             {
@@ -36,7 +36,7 @@ namespace CommandsService.Data.Repository
             _context.Platforms.Add(plat);
         }
 
-        public bool ExternalPlatformExists(int externalPlatformId)
+        public bool ExternalPlatformExists(Guid externalPlatformId)
         {
             return _context.Platforms.Any(p => p.ExternalID == externalPlatformId);
         }
@@ -46,20 +46,20 @@ namespace CommandsService.Data.Repository
             return _context.Platforms.ToList();
         }
 
-        public Command GetCommand(int platformId, int commandId)
+        public Command GetCommand(Guid platformId, Guid commandId)
         {
             return _context.Commands
                 .Where(c => c.PlatformId == platformId && c.Id == commandId).FirstOrDefault();
         }
 
-        public IEnumerable<Command> GetCommandsForPlatform(int platformId)
+        public IEnumerable<Command> GetCommandsForPlatform(Guid platformId)
         {
             return _context.Commands
                 .Where(c => c.PlatformId == platformId)
                 .OrderBy(c => c.Platform.Name);
         }
 
-        public bool PlaformExits(int platformId)
+        public bool PlaformExits(Guid platformId)
         {
             return _context.Platforms.Any(p => p.Id == platformId);
         }

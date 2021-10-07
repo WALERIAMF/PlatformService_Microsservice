@@ -24,17 +24,14 @@ namespace CommandsService
             Configuration = configuration;
         }
 
-        private void RegisterServices(IServiceCollection services)
-        {
-            DependencyContainer.RegisterServices(services, Configuration.GetConnectionString("SQL"), Configuration);
-        }
+
 
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMem"));
+            services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer("PlatformsConn"));
 
             services.AddScoped<ICommandRepository, CommandRepository>();
 

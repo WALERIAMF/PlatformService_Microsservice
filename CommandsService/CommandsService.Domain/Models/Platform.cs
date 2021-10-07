@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CommandsService.Domain.Models
@@ -7,9 +8,9 @@ namespace CommandsService.Domain.Models
     {
         [Key]
         [Required]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [Required]
-        public int ExternalID { get; set; }
+        public Guid ExternalID { get; set; }
         [Required]
         public string Name { get; set; }
         public ICollection<Command> Commands { get; set; } = new List<Command>();

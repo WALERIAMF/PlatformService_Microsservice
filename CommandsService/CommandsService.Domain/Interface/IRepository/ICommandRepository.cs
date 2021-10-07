@@ -1,4 +1,5 @@
 ﻿using CommandsService.Domain.Models;
+using System;
 using System.Collections.Generic;
 
 namespace CommandsService.Domain.Interface.IRepository
@@ -10,12 +11,12 @@ namespace CommandsService.Domain.Interface.IRepository
         // Platforms
         IEnumerable<Platform> GetAllPlatforms();
         void CreatePlatform(Platform plat);
-        bool PlaformExits(int platformId);
-        bool ExternalPlatformExists(int externalPlatformId);
+        bool PlaformExits(Guid platformId);
+        bool ExternalPlatformExists(Guid externalPlatformId);
 
         // Commands
-        IEnumerable<Command> GetCommandsForPlatform(int platformId);
-        Command GetCommand(int platformId, int commandId);
-        void CreateCommand(int platformId, Command command);
+        IEnumerable<Command> GetCommandsForPlatform(Guid platformId);
+        Command GetCommand(Guid platformId, Guid commandId);
+        void CreateCommand(Guid platformId, Command command);
     }
 }

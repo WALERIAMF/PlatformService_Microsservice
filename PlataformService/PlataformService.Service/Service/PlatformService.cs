@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
+using MassTransit;
+using Newtonsoft.Json;
 using PlataformService.Domain.Dto;
+using PlataformService.Domain.Enum;
 using PlataformService.Domain.Exceptions;
 using PlataformService.Domain.Interface.IService;
 using PlataformService.Domain.Interface.UnitOfWork;
 using PlataformService.Domain.Model;
 using PlataformService.Domain.Request;
+using PlataformService.MsgContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,38 +20,22 @@ namespace PlataformService.Service.Service
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        //private readonly IPublishEndpoint _publishEndpoint;
 
-        public PlatformService(IUnitOfWork unitOfWork, IMapper mapper)
+        public PlatformService(IUnitOfWork unitOfWork, IMapper mapper/*, IPublishEndpoint publishEndpoint*/)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-
+            //_publishEndpoint = publishEndpoint;
         }
 
-        public async Task DeletePlatform(Guid id)
-        {
-            try
-            {
-                var platformOrigem = await _unitOfWork.PlatformRepository.FirstOrDefault(f => f.Id == id);
-
-                if (platformOrigem == null)
-                    throw new CadastroDomainException($"Plataforma não encontrada {id}.");
-
-                _unitOfWork.PlatformRepository.Remove(platformOrigem);
-
-                await _unitOfWork.CommitAsync();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
+      
         public async Task<List<PlatformDto>> GetPlatform()
         {
             try
             {
-                var platformOrigem = await _unitOfWork.PlatformRepository.GetWhere(g => g.Name != null);
+
+                var platformOrigem = await _unitOfWork.PlatformRepository.GetWhere(g => g.Ativo != null || !g.Ativo);
 
                 var orderedPaltformOrigem = platformOrigem.OrderBy(o => o.Name).ToList();
 
@@ -57,6 +45,15 @@ namespace PlataformService.Service.Service
             }
             catch (Exception ex)
             {
+                //await _publishEndpoint.Publish<IRegisterLogCommand>(new
+                //{
+                //    Source = "PlatformService",
+                //    Name = "GetPlatform",
+                //    TimeStamp = DateTime.Now,
+                //    Data = JsonConvert.SerializeObject(new { Message = ex.Message }),
+                //    Type = nameof(TypeMessage.Erro)
+                //});
+
                 throw ex;
             }
         }
@@ -74,6 +71,15 @@ namespace PlataformService.Service.Service
 
             catch (Exception ex)
             {
+                //await _publishEndpoint.Publish<IRegisterLogCommand>(new
+                //{
+                //    Source = "PlatformService",
+                //    Name = "GetPlatformById",
+                //    TimeStamp = DateTime.Now,
+                //    Data = JsonConvert.SerializeObject(new { Message = ex.Message }),
+                //    Type = nameof(TypeMessage.Erro)
+                //});
+
                 throw ex;
             }
         }
@@ -100,6 +106,14 @@ namespace PlataformService.Service.Service
             }
             catch (Exception ex)
             {
+                //await _publishEndpoint.Publish<IRegisterLogCommand>(new
+                //{
+                //    Source = "PlatformService",
+                //    Name = "PostPlatform",
+                //    TimeStamp = DateTime.Now,
+                //    Data = JsonConvert.SerializeObject(new { Message = ex.Message }),
+                //    Type = nameof(TypeMessage.Erro)
+                //});
                 throw ex;
             }
 
@@ -126,10 +140,50 @@ namespace PlataformService.Service.Service
                 platformBanco.Cost = platformOrigem.Cost;
 
                 _unitOfWork.PlatformRepository.Update(platformBanco);
-                _unitOfWork.CommitAsync();
+                _unitOfWork.Commit();
             }
             catch (Exception ex)
             {
+                //await _publishEndpoint.Publish<IRegisterLogCommand>(new
+                //{
+                //    Source = "PlatformService",
+                //    Name = "PutPlatform",
+                //    TimeStamp = DateTime.Now,
+                //    Data = JsonConvert.SerializeObject(new { Message = ex.Message }),
+                //    Type = nameof(TypeMessage.Erro)
+                //});
+                throw ex;
+            }
+        }
+
+        public async Task DeletePlatform(Guid id)
+        {
+            try
+            {
+                #region remover
+                var platformOrigem = await _unitOfWork.PlatformRepository.FirstOrDefault(f => f.Id == id);
+
+                if (platformOrigem == null)
+                    throw new CadastroDomainException($"Plataforma não encontrada {id}.");
+
+                _unitOfWork.PlatformRepository.Remove(platformOrigem);
+
+                await _unitOfWork.CommitAsync();
+                #endregion
+                #region mudanca status
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                //await _publishEndpoint.Publish<IRegisterLogCommand>(new
+                //{
+                //    Source = "PlatformService",
+                //    Name = "DeletePlatform",
+                //    TimeStamp = DateTime.Now,
+                //    Data = JsonConvert.SerializeObject(new { Message = ex.Message }),
+                //    Type = nameof(TypeMessage.Erro)
+                //});
                 throw ex;
             }
         }

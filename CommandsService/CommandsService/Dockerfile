@@ -10,6 +10,9 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["CommandsService/CommandsService.csproj", "CommandsService/"]
+COPY ["CommandsService.Data/CommandsService.Data.csproj", "CommandsService.Data/"]
+COPY ["CommandsService.Domain/CommandsService.Domain.csproj", "CommandsService.Domain/"]
+COPY ["CommandsService.Application/CommandsService.Application.csproj", "CommandsService.Application/"]
 RUN dotnet restore "CommandsService/CommandsService.csproj"
 COPY . .
 WORKDIR "/src/CommandsService"

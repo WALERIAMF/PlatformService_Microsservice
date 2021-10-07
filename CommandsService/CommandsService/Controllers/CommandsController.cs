@@ -23,7 +23,7 @@ namespace CommandsService.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<CommandReadDto>> GetCommandsForPlatform(int platformId)
+        public ActionResult<IEnumerable<CommandReadDto>> GetCommandsForPlatform(Guid platformId)
         {
             Console.WriteLine($"--> Hit GetCommandsForPlatform: {platformId}");
 
@@ -38,7 +38,7 @@ namespace CommandsService.Controllers
         }
 
         [HttpGet("{commandId}", Name = "GetCommandForPlatform")]
-        public ActionResult<CommandReadDto> GetCommandForPlatform(int platformId, int commandId)
+        public ActionResult<CommandReadDto> GetCommandForPlatform(Guid platformId, Guid commandId)
         {
             Console.WriteLine($"--> Hit GetCommandForPlatform: {platformId} / {commandId}");
 
@@ -58,7 +58,7 @@ namespace CommandsService.Controllers
         }
 
         [HttpPost]
-        public ActionResult<CommandReadDto> CreateCommandForPlatform(int platformId, CommandCreateDto commandDto)
+        public ActionResult<CommandReadDto> CreateCommandForPlatform(Guid platformId, CommandCreateDto commandDto)
         {
             Console.WriteLine($"--> Hit CreateCommandForPlatform: {platformId}");
 
