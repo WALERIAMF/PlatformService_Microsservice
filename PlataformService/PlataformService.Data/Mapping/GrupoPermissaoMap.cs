@@ -25,6 +25,9 @@ namespace PlataformService.Data.Mapping
             builder.Property(p => p.DataAtualizacao)
                     .HasColumnType("datetime2")
                     .HasPrecision(0);
+
+
+
         }
     }
 }

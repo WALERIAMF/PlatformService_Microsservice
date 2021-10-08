@@ -27,5 +27,9 @@ namespace PlataformService.Data.UnitOfWork
         }
 
         public readonly IPlatformRepository PlatformRepository;
+        public readonly IColaboradorRepository ColaboradorRepository;
+        public readonly IGrupoPermissaoRepository GrupoPermissaoRepository;
+        public readonly IPermissaoRepository PermissaoRepository;
+        public readonly IUsuarioRepository UsuarioRepository;
     }
 }

@@ -10,9 +10,17 @@ namespace PlataformService.Data.Profile
         public PlatformsProfile()
         {
             CreateMap<PlatformEntity, PlatformModel>().ReverseMap();
+            CreateMap<ColaboradorEntity, ColaboradorModel>().ReverseMap();
+            CreateMap<GrupoPermissaoEntity, GrupoPermissaoModel>().ReverseMap();
+            CreateMap<PermissaoEntity, PermissaoModel>().ReverseMap();
+            CreateMap<UsuarioEntity, UsuarioModel>().ReverseMap();
+
             CreateMap<PlatformPostRequest, PlatformModel>().ReverseMap();
             CreateMap<PlatformPutRequest, PlatformModel>().ReverseMap();
+
             CreateMap<PlatformDto, PlatformModel>().ReverseMap();
+
+
         }
     }
 }

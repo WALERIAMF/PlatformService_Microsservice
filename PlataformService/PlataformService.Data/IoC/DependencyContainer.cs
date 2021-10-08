@@ -27,17 +27,23 @@ namespace PlataformService.Data.IoC
             //Services
             services.AddTransient<IPlatformService, PlatformService>();
 
+
             //Repository
             services.AddTransient<IPlatformRepository, PlatformRepository>();
+            services.AddTransient<IColaboradorRepository, ColaboradorRepository>();
+            services.AddTransient<IGrupoPermissaoRepository, GrupoPermissaoRepository>();
+            services.AddTransient<IPermissaoRepository, PermissaoRepository>();
+            services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+
 
             // Unit Of Work
             services.AddTransient<IUnitOfWork, Repository.UnitOfWork.UnitOfWork>();
 
-            //AutoMapper
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
             services.AddTransient<IValidator<PlatformPutRequest>, PlatformPutRequestValidator>();
             services.AddTransient<IValidator<PlatformPostRequest>, PlatformPostRequestValidator>();
+
+            //AutoMapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         }
     }

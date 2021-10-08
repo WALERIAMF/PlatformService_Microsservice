@@ -5,9 +5,11 @@ using PlataformService.Domain.Model;
 
 namespace PlataformService.Data.Repository
 {
-    public class ColaboradorRepository : BaseRepository<ColaboradorModel, ColaboradorEntity>, IColaboradorRepository
+    public class PermissaoRepository : BaseRepository<PermissaoModel, PermissaoEntity>, IPermissaoRepository
     {
-        public ColaboradorRepository(AppDbContext context) : base(context) { }
+        public PermissaoRepository(AppDbContext context) : base(context)
+        {
+        }
 
     }
 }

@@ -7,8 +7,6 @@ namespace PlataformService.Data.Context
 {
     public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
-
-
         public AppDbContext CreateDbContext(string[] args)
         {
             var configuration = new ConfigurationBuilder()
