@@ -44,6 +44,13 @@ namespace PlataformService.Api
             services.AddControllers()
                 .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Startup>());
 
+            services.AddAuthentication()
+               .AddGoogle(options =>
+               {
+                   options.ClientId = "164211724100-mulmfgda4833vnco3lm8itjov8tu182n.apps.googleusercontent.com";
+                   options.ClientSecret = "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";
+               });
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddMvc(options =>
