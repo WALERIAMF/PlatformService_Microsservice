@@ -1,5 +1,5 @@
-﻿using PlataformService.Domain.Model;
-using PlataformService.Domain.Response;
+﻿using PlataformService.Domain.Dto;
+using PlataformService.Domain.Request;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,10 +8,10 @@ namespace PlataformService.Domain.Interface.IService
 {
     public interface IColaboradorService
     {
-        Task PostPlatform(ColaboradorPostRequest request);
-        Task PutPlatform(ColaboradorPutRequest request);
-        Task DeletePlatform(Guid id);
-        Task<List<ColaboradorDto>> GetPlatform();
-        Task<ColaboradorDto> GetPlatformById(Guid id);
+        Task PostColaborador(ColaboradorPostRequest request);
+        Task PutColaborador(ColaboradorPutRequest request);
+        Task DeleteColaborador(Guid id);
+        Task<List<ColaboradorDto>> GetColaborador();
+        Task<ColaboradorDto> GetColaboradorById(Guid id);
     }
 }

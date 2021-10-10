@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PlataformService.Domain.Request
 {
-    class UsuarioPutRequest
+    public class UsuarioPutRequest
     {
         public Guid Id { get; set; }
         public string Login { get; set; }
