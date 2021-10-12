@@ -25,7 +25,11 @@ namespace PlataformService.Data.IoC
             });
 
             //Services
+            services.AddTransient<IColaboradorService, ColaboradorService>();
+            //services.AddTransient<IGrupoPermissaoService, GrupoPermissaoService>();
+            //services.AddTransient<IPermissaoService, PermissaoService>();
             services.AddTransient<IPlatformService, PlatformService>();
+            //services.AddTransient<IUsuarioService, UsuarioService>();
 
 
             //Repository
@@ -39,6 +43,8 @@ namespace PlataformService.Data.IoC
             // Unit Of Work
             services.AddTransient<IUnitOfWork, Repository.UnitOfWork.UnitOfWork>();
 
+            services.AddTransient<IValidator<ColaboradorPutRequest>, ColaboradorPutRequestValidator>();
+            services.AddTransient<IValidator<ColaboradorPostRequest>, ColaboradorPostRequestValidator>();
             services.AddTransient<IValidator<PlatformPutRequest>, PlatformPutRequestValidator>();
             services.AddTransient<IValidator<PlatformPostRequest>, PlatformPostRequestValidator>();
 
