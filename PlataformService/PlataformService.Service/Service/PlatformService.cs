@@ -37,9 +37,9 @@ namespace PlataformService.Service.Service
 
                 var platformOrigem = await _unitOfWork.PlatformRepository.GetWhere(g => g.Ativo != null || !g.Ativo);
 
-                var orderedPaltformOrigem = platformOrigem.OrderBy(o => o.Name).ToList();
+                var orderedPlatformOrigem = platformOrigem.OrderBy(o => o.Name).ToList();
 
-                var data = _mapper.Map<List<PlatformDto>>(orderedPaltformOrigem);
+                var data = _mapper.Map<List<PlatformDto>>(orderedPlatformOrigem);
 
                 return data;
             }
@@ -170,9 +170,7 @@ namespace PlataformService.Service.Service
 
                 await _unitOfWork.CommitAsync();
                 #endregion
-                #region mudanca status
 
-                #endregion
             }
             catch (Exception ex)
             {

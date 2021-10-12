@@ -5,7 +5,11 @@ namespace PlataformService.Domain.Interface.UnitOfWork
 {
     public interface IUnitOfWork
     {
+        IColaboradorRepository ColaboradorRepository { get; }
+        IGrupoPermissaoRepository GrupoPermissaoRepository { get; }
+        IPermissaoRepository PermissaoRepository { get; }
         IPlatformRepository PlatformRepository { get; }
+
 
         int Commit();
         Task<int> CommitAsync();

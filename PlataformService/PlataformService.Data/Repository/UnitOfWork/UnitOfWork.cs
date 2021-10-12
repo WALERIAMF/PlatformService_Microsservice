@@ -19,6 +19,17 @@ namespace PlataformService.Data.Repository.UnitOfWork
         private IPlatformRepository _platformRepository;
         public IPlatformRepository PlatformRepository => _platformRepository ?? (_platformRepository = new PlatformRepository(_context));
 
+        private IColaboradorRepository _colaboradorRepository;
+        public IColaboradorRepository ColaboradorRepository => _colaboradorRepository ?? (_colaboradorRepository = new ColaboradorRepository(_context));
+
+        private IGrupoPermissaoRepository _grupoPermissaoRepository;
+        public IGrupoPermissaoRepository GrupoPermissaoRepository => _grupoPermissaoRepository ?? (_grupoPermissaoRepository = new GrupoPermissaoRepository(_context));
+
+        private IPermissaoRepository _permissaoRepository;
+        public IPermissaoRepository PermissaoRepository => _permissaoRepository ?? (_permissaoRepository = new PermissaoRepository(_context));
+
+        private IUsuarioRepository _usuarioRepository;
+        public IUsuarioRepository UsuarioRepository => _usuarioRepository ?? (_usuarioRepository = new UsuarioRepository(_context));
 
         public int Commit()
         {

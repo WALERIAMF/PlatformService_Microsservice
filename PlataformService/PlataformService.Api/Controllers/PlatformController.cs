@@ -21,7 +21,7 @@ namespace PlataformService.Api.Controllers
 
         }
         [HttpGet]
-        public async Task<IActionResult> GetSistemasOrigem()
+        public async Task<IActionResult> GetPlatformOrigem()
         {
             var data = await _service.GetPlatform();
 
@@ -33,7 +33,7 @@ namespace PlataformService.Api.Controllers
         }
 
         [HttpGet("platform/{id}", Name = "GetPlatformById")]
-        public async Task<IActionResult> GetSistemaOrigemById(Guid id)
+        public async Task<IActionResult> GetPlatformOrigemById(Guid id)
         {
             var data = await _service.GetPlatformById(id);
 
