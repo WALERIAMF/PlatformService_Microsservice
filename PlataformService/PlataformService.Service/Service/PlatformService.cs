@@ -8,6 +8,7 @@ using PlataformService.Domain.Interface.IService;
 using PlataformService.Domain.Interface.UnitOfWork;
 using PlataformService.Domain.Model;
 using PlataformService.Domain.Request;
+using PlataformService.Service.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,6 +88,10 @@ namespace PlataformService.Service.Service
         {
             try
             {
+                var resultadoValidacao = new PlatformPostRequestValidator().Validate(request);
+                if (!resultadoValidacao.IsValid)
+                    throw new InvalidOperationException(string.Join("\n", resultadoValidacao.Errors.Select(s => s)));
+
                 var platformBanco = await _unitOfWork.PlatformRepository.FirstOrDefault(f => f.Name.Equals(request.Name));
 
                 if (platformBanco != null)
@@ -122,6 +127,10 @@ namespace PlataformService.Service.Service
         {
             try
             {
+                var resultadoValidacao = new PlatformPutRequestValidator().Validate(request);
+                if (!resultadoValidacao.IsValid)
+                    throw new InvalidOperationException(string.Join("\n", resultadoValidacao.Errors.Select(s => s)));
+
                 var platformOrigem = _mapper.Map<PlatformModel>(request);
 
                 var platformBanco = await _unitOfWork.PlatformRepository.FirstOrDefault(f => f.Id == request.Id);
