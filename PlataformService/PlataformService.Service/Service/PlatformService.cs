@@ -138,6 +138,7 @@ namespace PlataformService.Service.Service
                 platformBanco.Name = platformOrigem.Name;
                 platformBanco.Publisher = platformOrigem.Publisher;
                 platformBanco.Cost = platformOrigem.Cost;
+                platformBanco.DataAtualizacao = platformOrigem.DataAtualizacao;
 
                 _unitOfWork.PlatformRepository.Update(platformBanco);
                 _unitOfWork.Commit();
@@ -182,6 +183,7 @@ namespace PlataformService.Service.Service
                 //    Data = JsonConvert.SerializeObject(new { Message = ex.Message }),
                 //    Type = nameof(TypeMessage.Erro)
                 //});
+
                 throw ex;
             }
         }

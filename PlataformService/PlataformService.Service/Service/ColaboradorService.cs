@@ -31,7 +31,7 @@ namespace PlataformService.Service.Service
                 var colaboradorOrigem = await _unitOfWork.ColaboradorRepository.FirstOrDefault(f => f.Id == id);
 
                 if (colaboradorOrigem == null)
-                    throw new CadastroDomainException($"Plataforma não encontrada {id}.");
+                    throw new CadastroDomainException($"Colaborador não encontrado {id}.");
                 colaboradorOrigem.InativarRegistro();
                 _unitOfWork.ColaboradorRepository.Update(colaboradorOrigem);
 
@@ -127,6 +127,7 @@ namespace PlataformService.Service.Service
                 colaboradorBanco.Nome = colaboradorOrigem.Nome;
                 colaboradorBanco.Email = colaboradorOrigem.Email;
                 colaboradorBanco.Ativo = colaboradorOrigem.Ativo;
+                colaboradorBanco.DataAtualizacao = colaboradorOrigem.DataAtualizacao;
 
                 _unitOfWork.ColaboradorRepository.Update(colaboradorBanco);
                 _unitOfWork.Commit();
