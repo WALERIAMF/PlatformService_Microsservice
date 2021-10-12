@@ -22,7 +22,7 @@ namespace PlataformService.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetSistemasOrigem()
+        public async Task<IActionResult> GetColaborador()
         {
             var data = await _service.GetColaborador();
 
@@ -34,7 +34,7 @@ namespace PlataformService.Api.Controllers
         }
 
         [HttpGet("colaborador/{id}", Name = "GetColaboradorformById")]
-        public async Task<IActionResult> GetSistemaOrigemById(Guid id)
+        public async Task<IActionResult> GetColaboradorById(Guid id)
         {
             var data = await _service.GetColaboradorById(id);
 

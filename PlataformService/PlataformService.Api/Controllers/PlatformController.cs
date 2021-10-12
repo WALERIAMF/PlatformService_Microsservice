@@ -51,7 +51,6 @@ namespace PlataformService.Api.Controllers
             return Ok();
         }
 
-
         [HttpPut]
         public async Task<IActionResult> Put(PlatformPutRequest request)
         {
