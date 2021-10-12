@@ -24,7 +24,7 @@ namespace PlataformService.Data.Repository
             _db = dbContext;
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(typeof(PlatformsProfile));
+                cfg.AddProfile(typeof(PlatformServiceProfile));
             });
             _mapper = config.CreateMapper();
         }

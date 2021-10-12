@@ -26,10 +26,10 @@ namespace PlataformService.Data.IoC
 
             //Services
             services.AddTransient<IColaboradorService, ColaboradorService>();
-            //services.AddTransient<IGrupoPermissaoService, GrupoPermissaoService>();
-            //services.AddTransient<IPermissaoService, PermissaoService>();
+            services.AddTransient<IGrupoPermissaoService, GrupoPermissaoService>();
+            services.AddTransient<IPermissaoService, PermissaoService>();
             services.AddTransient<IPlatformService, PlatformService>();
-            //services.AddTransient<IUsuarioService, UsuarioService>();
+            services.AddTransient<IUsuarioService, UsuarioService>();
 
 
             //Repository
@@ -45,8 +45,19 @@ namespace PlataformService.Data.IoC
 
             services.AddTransient<IValidator<ColaboradorPutRequest>, ColaboradorPutRequestValidator>();
             services.AddTransient<IValidator<ColaboradorPostRequest>, ColaboradorPostRequestValidator>();
+
+            //services.AddTransient<IValidator<GrupoPermissaoPutRequest>, GrupoPermissaoPutRequestValidator>();
+            //services.AddTransient<IValidator<GrupoPermissaoPostRequest>, GrupoPermissaoPostRequestValidator>();
+
+
+            //services.AddTransient<IValidator<PermissaoPutRequest>, PermissaoPutRequestValidator>();
+            //services.AddTransient<IValidator<PermissaoPostRequest>, PermissaoPostRequestValidator>();
+
             services.AddTransient<IValidator<PlatformPutRequest>, PlatformPutRequestValidator>();
             services.AddTransient<IValidator<PlatformPostRequest>, PlatformPostRequestValidator>();
+
+            //services.AddTransient<IValidator<UsuarioPutRequest>, UsuarioPutRequestValidator>();
+            //services.AddTransient<IValidator<UsuarioPostRequest>, UsuarioPostRequestValidator>();
 
             //AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
