@@ -8,6 +8,8 @@ namespace PlataformService.Service.Validators
     {
         public PlatformPutRequestValidator()
         {
+            RuleFor(x => x.Id).NotNull().NotEmpty().WithMessage("É necessário informar o Id.");
+
             RuleFor(x => x.Name)
                 .NotNull()
                 .NotEmpty()

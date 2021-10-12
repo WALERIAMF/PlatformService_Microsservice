@@ -5,6 +5,7 @@ using PlataformService.Domain.Interface.IService;
 using PlataformService.Domain.Interface.UnitOfWork;
 using PlataformService.Domain.Model;
 using PlataformService.Domain.Request;
+using PlataformService.Service.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,6 +85,10 @@ namespace PlataformService.Service.Service
         {
             try
             {
+                var resultadoValidacao = new ColaboradorPostRequestValidator().Validate(request);
+                if (!resultadoValidacao.IsValid)
+                    throw new InvalidOperationException(string.Join("\n", resultadoValidacao.Errors.Select(s => s)));
+
                 var colaboradorBanco = await _unitOfWork.ColaboradorRepository.FirstOrDefault(f => f.Nome.Equals(request.Nome));
 
                 if (colaboradorBanco != null)
@@ -112,6 +117,9 @@ namespace PlataformService.Service.Service
         {
             try
             {
+                var resultadoValidacao = new ColaboradorPutRequestValidator().Validate(request);
+                if (!resultadoValidacao.IsValid)
+                    throw new InvalidOperationException(string.Join("\n", resultadoValidacao.Errors.Select(s => s)));
                 var colaboradorOrigem = _mapper.Map<ColaboradorModel>(request);
 
                 var colaboradorBanco = await _unitOfWork.ColaboradorRepository.FirstOrDefault(f => f.Id == request.Id);

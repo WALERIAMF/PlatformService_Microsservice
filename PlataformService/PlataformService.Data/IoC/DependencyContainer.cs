@@ -43,8 +43,9 @@ namespace PlataformService.Data.IoC
             // Unit Of Work
             services.AddTransient<IUnitOfWork, Repository.UnitOfWork.UnitOfWork>();
 
-            services.AddTransient<IValidator<ColaboradorPutRequest>, ColaboradorPutRequestValidator>();
             services.AddTransient<IValidator<ColaboradorPostRequest>, ColaboradorPostRequestValidator>();
+            services.AddTransient<IValidator<ColaboradorPutRequest>, ColaboradorPutRequestValidator>();
+
 
             //services.AddTransient<IValidator<GrupoPermissaoPutRequest>, GrupoPermissaoPutRequestValidator>();
             //services.AddTransient<IValidator<GrupoPermissaoPostRequest>, GrupoPermissaoPostRequestValidator>();

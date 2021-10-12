@@ -11,10 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlataformService.Domain", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlataformService.Service", "PlataformService.Service\PlataformService.Service.csproj", "{3C582BC0-1138-4DBB-B0C5-ADBA8DFA3AD8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plataform_Service.Domain", "Plataform_Service.Domain", "{1249D552-9831-4297-B122-76E01FD55506}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlataformService.MsgContracts", "PlataformService.MsgContracts\PlataformService.MsgContracts.csproj", "{15DBC09F-0450-4F1D-A3BE-BEE5FAD23A11}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,17 +33,9 @@ Global
 		{3C582BC0-1138-4DBB-B0C5-ADBA8DFA3AD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C582BC0-1138-4DBB-B0C5-ADBA8DFA3AD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C582BC0-1138-4DBB-B0C5-ADBA8DFA3AD8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15DBC09F-0450-4F1D-A3BE-BEE5FAD23A11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15DBC09F-0450-4F1D-A3BE-BEE5FAD23A11}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15DBC09F-0450-4F1D-A3BE-BEE5FAD23A11}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15DBC09F-0450-4F1D-A3BE-BEE5FAD23A11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{8B081A3A-5A28-4444-B1C6-3BB50B0BAED0} = {1249D552-9831-4297-B122-76E01FD55506}
-		{15DBC09F-0450-4F1D-A3BE-BEE5FAD23A11} = {1249D552-9831-4297-B122-76E01FD55506}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83FB199B-CF41-48FD-8AD8-64F5B96970BC}

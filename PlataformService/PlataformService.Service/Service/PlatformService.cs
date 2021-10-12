@@ -8,7 +8,6 @@ using PlataformService.Domain.Interface.IService;
 using PlataformService.Domain.Interface.UnitOfWork;
 using PlataformService.Domain.Model;
 using PlataformService.Domain.Request;
-using PlataformService.MsgContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

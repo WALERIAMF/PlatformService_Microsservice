@@ -16,7 +16,7 @@ namespace PlataformService.Data.Context
 
             var dbContextBuilder = new DbContextOptionsBuilder<AppDbContext>();
             var connectionString = configuration.GetConnectionString("PlatformsConn");
-            dbContextBuilder.UseSqlServer(connectionString);
+            dbContextBuilder.UseSqlServer(connectionString); 
 
             return new AppDbContext(dbContextBuilder.Options);
         }

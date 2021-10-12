@@ -8,9 +8,11 @@ namespace PlataformService.Service.Validators
     {
         public ColaboradorPutRequestValidator()
         {
+            RuleFor(x => x.Id).NotNull().NotEmpty().WithMessage("É necessário informar o Id.");
+
             RuleFor(x => x.Nome).NotNull().NotEmpty().WithMessage("É necessário informar o Nome.")
-                 .MinimumLength(3).WithMessage("Informar um nome maior")
-                 .MaximumLength(100).WithMessage("Nome muito grande");
+                .MinimumLength(3).WithMessage("Informar um nome maior")
+                .MaximumLength(100).WithMessage("Nome muito grande");
 
             RuleFor(e => e.Email).NotNull().NotEmpty()
                 .WithMessage("O campo Email não pode ser nullo ou vazio!");
