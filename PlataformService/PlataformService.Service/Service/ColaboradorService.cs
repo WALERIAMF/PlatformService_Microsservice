@@ -113,7 +113,7 @@ namespace PlataformService.Service.Service
             }
         }
 
-        public async Task PutColaborador(ColaboradorPutRequest request)
+        public async Task PutColaborador(Guid id, ColaboradorPutRequest request)
         {
             try
             {

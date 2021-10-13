@@ -9,7 +9,7 @@ namespace PlataformService.Domain.Interface.IService
     public interface IColaboradorService
     {
         Task PostColaborador(ColaboradorPostRequest request);
-        Task PutColaborador(ColaboradorPutRequest request);
+        Task PutColaborador(Guid id, ColaboradorPutRequest request);
         Task DesativarColaborador(Guid id);
         Task<List<ColaboradorDto>> GetColaborador();
         Task<ColaboradorDto> GetColaboradorById(Guid id);

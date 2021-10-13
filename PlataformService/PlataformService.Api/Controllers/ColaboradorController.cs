@@ -54,10 +54,10 @@ namespace PlataformService.Api.Controllers
 
 
         [HttpPut]
-        public async Task<IActionResult> Put(ColaboradorPutRequest request)
+        public async Task<IActionResult> Put(Guid id, ColaboradorPutRequest request)
         {
 
-            await _service.PutColaborador(request);
+            await _service.PutColaborador(id, request);
             return Ok();
         }
 
