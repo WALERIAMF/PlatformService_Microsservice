@@ -9,6 +9,7 @@ namespace PlataformService.Domain.Interface.UnitOfWork
         IGrupoPermissaoRepository GrupoPermissaoRepository { get; }
         IPermissaoRepository PermissaoRepository { get; }
         IPlatformRepository PlatformRepository { get; }
+        IUsuarioRepository UsuarioRepository { get; }
 
 
         int Commit();

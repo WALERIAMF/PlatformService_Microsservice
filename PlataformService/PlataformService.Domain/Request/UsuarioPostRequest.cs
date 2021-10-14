@@ -7,6 +7,7 @@ namespace PlataformService.Domain.Request
         public string Login { get; set; }
         public string Nome { get; set; }
         public string Senha { get; set; }
+        public bool Ativo { get; set; }
         public List<string> GruposPermissaoIdList { get; set; }
     }
 }

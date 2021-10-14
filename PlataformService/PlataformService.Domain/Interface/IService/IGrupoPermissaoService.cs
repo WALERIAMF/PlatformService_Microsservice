@@ -10,10 +10,10 @@ namespace PlataformService.Domain.Interface.IService
 {
     public interface IGrupoPermissaoService
     {
-        Task PostColaborador(GrupoPermissaoPostRequest request);
-        Task PutColaborador(GrupoPermissaoPutRequest request);
-        Task DesativarPermissao(Guid id);
-        Task<List<GrupoPermissaoDto>> GetColaborador();
-        Task<GrupoPermissaoDto> GetColaboradorById(string nome);
+        Task PostGrupoPermissaoAsync(GrupoPermissaoPostRequest request);
+        Task PutGrupoPermissaoAsync(GrupoPermissaoPutRequest request);
+        Task DesativarGrupoPermissaoAsync(Guid id);
+        Task<List<GrupoPermissaoDto>> GetGrupoPermissaoAsync();
+        Task<GrupoPermissaoDto> GetGrupoPermissaoByIdAsync(Guid id);
     }
 }

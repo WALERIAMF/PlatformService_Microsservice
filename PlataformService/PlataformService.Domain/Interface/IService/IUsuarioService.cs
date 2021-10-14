@@ -8,10 +8,10 @@ namespace PlataformService.Domain.Interface.IService
 {
     public interface IUsuarioService
     {
-        Task PostColaborador(UsuarioPostRequest request);
-        Task PutColaborador(UsuarioPutRequest request);
-        Task DesativarPermissao(Guid id);
-        Task<List<UsuarioDto>> GetColaborador();
-        Task<UsuarioDto> GetColaboradorById(string nome);
+        Task PostUsuarioAsync(UsuarioPostRequest request);
+        Task PutUsuarioAsync(UsuarioPutRequest request);
+        Task DesativarUsuarioAsync(Guid id);
+        Task<List<UsuarioDto>> GetUsuarioAsync();
+        Task<UsuarioDto> GetUsuarioByIdAsync(Guid id);
     }
 }

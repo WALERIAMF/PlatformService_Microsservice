@@ -24,7 +24,7 @@ namespace PlataformService.Service.Service
             _mapper = mapper;
         }
 
-        public async Task DesativarColaborador(Guid id)
+        public async Task DesativarColaboradorAsync(Guid id)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace PlataformService.Service.Service
             }
         }
 
-        public async Task<List<ColaboradorDto>> GetColaborador()
+        public async Task<List<ColaboradorDto>> GetColaboradorAsync()
         {
             try
             {
@@ -64,7 +64,7 @@ namespace PlataformService.Service.Service
             }
         }
 
-        public async Task<ColaboradorDto> GetColaboradorById(Guid id)
+        public async Task<ColaboradorDto> GetColaboradorByIdAsync(Guid id)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace PlataformService.Service.Service
 
         }
 
-        public async Task PostColaborador(ColaboradorPostRequest request)
+        public async Task PostColaboradorAsync(ColaboradorPostRequest request)
         {
             try
             {
@@ -113,13 +113,14 @@ namespace PlataformService.Service.Service
             }
         }
 
-        public async Task PutColaborador(Guid id, ColaboradorPutRequest request)
+        public async Task PutColaboradorAsync(Guid id, ColaboradorPutRequest request)
         {
             try
             {
                 var resultadoValidacao = new ColaboradorPutRequestValidator().Validate(request);
                 if (!resultadoValidacao.IsValid)
                     throw new InvalidOperationException(string.Join("\n", resultadoValidacao.Errors.Select(s => s)));
+
                 var colaboradorOrigem = _mapper.Map<ColaboradorModel>(request);
 
                 var colaboradorBanco = await _unitOfWork.ColaboradorRepository.FirstOrDefault(f => f.Id == request.Id);

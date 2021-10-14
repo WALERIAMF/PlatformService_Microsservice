@@ -8,10 +8,10 @@ namespace PlataformService.Domain.Interface.IService
 {
     public interface IColaboradorService
     {
-        Task PostColaborador(ColaboradorPostRequest request);
-        Task PutColaborador(Guid id, ColaboradorPutRequest request);
-        Task DesativarColaborador(Guid id);
-        Task<List<ColaboradorDto>> GetColaborador();
-        Task<ColaboradorDto> GetColaboradorById(Guid id);
+        Task PostColaboradorAsync(ColaboradorPostRequest request);
+        Task PutColaboradorAsync(Guid id, ColaboradorPutRequest request);
+        Task DesativarColaboradorAsync(Guid id);
+        Task<List<ColaboradorDto>> GetColaboradorAsync();
+        Task<ColaboradorDto> GetColaboradorByIdAsync(Guid id);
     }
 }
