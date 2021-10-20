@@ -13,5 +13,6 @@ namespace PlataformService.Domain.Interface.IService
         Task DesativarColaboradorAsync(Guid id);
         Task<List<ColaboradorDto>> GetColaboradorAsync();
         Task<ColaboradorDto> GetColaboradorByIdAsync(Guid id);
+        Task<ColaboradorDto> GetColaboradorByNameAsync(string name);
     }
 }

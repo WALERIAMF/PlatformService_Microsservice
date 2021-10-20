@@ -29,7 +29,7 @@ namespace PlataformService.Service.Service
             try
             {
                 #region remover
-                var colaboradorOrigem = await _unitOfWork.ColaboradorRepository.FirstOrDefault(f => f.Id == id);
+                var colaboradorOrigem = await _unitOfWork.ColaboradorRepository.FirstOrDefaultAsync(f => f.Id == id);
 
                 if (colaboradorOrigem == null)
                     throw new CadastroDomainException($"Colaborador não encontrado {id}.");
@@ -50,7 +50,7 @@ namespace PlataformService.Service.Service
         {
             try
             {
-                var colaboradorOrigem = await _unitOfWork.ColaboradorRepository.GetWhere(a => a.Ativo != null || !a.Ativo);
+                var colaboradorOrigem = await _unitOfWork.ColaboradorRepository.GetWhereAsync(a => a.Ativo != null || !a.Ativo);
                 var orderColaboradorOrigem = colaboradorOrigem.OrderBy(n => n.Nome).ToList();
                 var data = _mapper.Map<List<ColaboradorDto>>(orderColaboradorOrigem);
 
@@ -68,7 +68,7 @@ namespace PlataformService.Service.Service
         {
             try
             {
-                var colaboradorOrigem = await _unitOfWork.ColaboradorRepository.FirstOrDefault(f => f.Id == id);
+                var colaboradorOrigem = await _unitOfWork.ColaboradorRepository.FirstOrDefaultAsync(f => f.Id == id);
 
                 var data = _mapper.Map<ColaboradorDto>(colaboradorOrigem);
                 return data;
@@ -81,6 +81,22 @@ namespace PlataformService.Service.Service
 
         }
 
+        public async Task<ColaboradorDto> GetColaboradorByNameAsync(string name)
+        {
+            try
+            {
+                var colaboradorOrigem = await _unitOfWork.ColaboradorRepository.FirstOrDefaultAsync(f => f.Nome.Contains(name));
+
+                var data = _mapper.Map<ColaboradorDto>(colaboradorOrigem);
+                return data;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task PostColaboradorAsync(ColaboradorPostRequest request)
         {
             try
@@ -89,7 +105,7 @@ namespace PlataformService.Service.Service
                 if (!resultadoValidacao.IsValid)
                     throw new InvalidOperationException(string.Join("\n", resultadoValidacao.Errors.Select(s => s)));
 
-                var colaboradorBanco = await _unitOfWork.ColaboradorRepository.FirstOrDefault(f => f.Nome.Equals(request.Nome));
+                var colaboradorBanco = await _unitOfWork.ColaboradorRepository.FirstOrDefaultAsync(f => f.Nome.Equals(request.Nome));
 
                 if (colaboradorBanco != null)
                     throw new CadastroDomainException("Colaborador já existe.");
@@ -103,7 +119,7 @@ namespace PlataformService.Service.Service
 
                 };
 
-                await _unitOfWork.ColaboradorRepository.Add(colaboradorBanco);
+                await _unitOfWork.ColaboradorRepository.AddAsync(colaboradorBanco);
                 await _unitOfWork.CommitAsync();
             }
             catch (Exception ex)
@@ -123,12 +139,12 @@ namespace PlataformService.Service.Service
 
                 var colaboradorOrigem = _mapper.Map<ColaboradorModel>(request);
 
-                var colaboradorBanco = await _unitOfWork.ColaboradorRepository.FirstOrDefault(f => f.Id == request.Id);
+                var colaboradorBanco = await _unitOfWork.ColaboradorRepository.FirstOrDefaultAsync(f => f.Id == request.Id);
 
                 if (colaboradorBanco == null)
                     throw new CadastroDomainException($"O colaborador não foi encontrada ${request.Id}.");
 
-                var duplicate = await _unitOfWork.ColaboradorRepository.FirstOrDefault(f => f.Nome.Equals(request.Nome) && f.Id != request.Id);
+                var duplicate = await _unitOfWork.ColaboradorRepository.FirstOrDefaultAsync(f => f.Nome.Equals(request.Nome) && f.Id != request.Id);
 
                 if (duplicate != null)
                     throw new CadastroDomainException("O colaborador com o nome informado já existe.");

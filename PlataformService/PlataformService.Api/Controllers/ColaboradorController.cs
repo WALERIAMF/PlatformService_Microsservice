@@ -24,7 +24,7 @@ namespace PlataformService.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetColaborador()
         {
-            var data = await _service.GetColaborador();
+            var data = await _service.GetColaboradorAsync();
 
             return Ok(new ResponseData<List<ColaboradorDto>>
             {
@@ -36,7 +36,7 @@ namespace PlataformService.Api.Controllers
         [HttpGet("colaborador/{id}", Name = "GetColaboradorformById")]
         public async Task<IActionResult> GetColaboradorById(Guid id)
         {
-            var data = await _service.GetColaboradorById(id);
+            var data = await _service.GetColaboradorByIdAsync(id);
 
             return Ok(new ResponseData<ColaboradorDto>
             {
@@ -48,7 +48,7 @@ namespace PlataformService.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(ColaboradorPostRequest request)
         {
-            await _service.PostColaborador(request);
+            await _service.PostColaboradorAsync(request);
             return Ok();
         }
 
@@ -57,14 +57,14 @@ namespace PlataformService.Api.Controllers
         public async Task<IActionResult> Put(Guid id, ColaboradorPutRequest request)
         {
 
-            await _service.PutColaborador(id, request);
+            await _service.PutColaboradorAsync(id, request);
             return Ok();
         }
 
         [HttpDelete]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _service.DesativarColaborador(id);
+            await _service.DesativarColaboradorAsync(id);
             return Ok();
         }
     }

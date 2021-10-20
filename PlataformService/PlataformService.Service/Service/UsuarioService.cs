@@ -28,7 +28,7 @@ namespace PlataformService.Service.Service
         {
             try
             {
-                var usuarioOrigem = await _unitOfWork.UsuarioRepository.FirstOrDefault(f => f.Id == id);
+                var usuarioOrigem = await _unitOfWork.UsuarioRepository.FirstOrDefaultAsync(f => f.Id == id);
 
                 if (usuarioOrigem == null)
                     throw new CadastroDomainException($"Usuário não encontrado {id}.");
@@ -46,7 +46,7 @@ namespace PlataformService.Service.Service
 
         public async Task<List<UsuarioDto>> GetUsuarioAsync()
         {
-            var usuarioOrigem = await _unitOfWork.UsuarioRepository.GetWhere(a => a.Ativo != null || !a.Ativo);
+            var usuarioOrigem = await _unitOfWork.UsuarioRepository.GetWhereAsync(a => a.Ativo != null || !a.Ativo);
             var orderUsuarioOrigem = usuarioOrigem.OrderBy(n => n.Nome).ToList();
             var data = _mapper.Map<List<UsuarioDto>>(orderUsuarioOrigem);
 
@@ -57,7 +57,7 @@ namespace PlataformService.Service.Service
         {
             try
             {
-                var usuarioOrigem = await _unitOfWork.UsuarioRepository.FirstOrDefault(f => f.Id == id);
+                var usuarioOrigem = await _unitOfWork.UsuarioRepository.FirstOrDefaultAsync(f => f.Id == id);
 
                 var data = _mapper.Map<UsuarioDto>(usuarioOrigem);
                 return data;
@@ -77,7 +77,7 @@ namespace PlataformService.Service.Service
                 if (!resultadoValidacao.IsValid)
                     throw new InvalidOperationException(string.Join("\n", resultadoValidacao.Errors.Select(s => s)));
 
-                var usuarioBanco = await _unitOfWork.UsuarioRepository.FirstOrDefault(f => f.Nome.Equals(request.Nome));
+                var usuarioBanco = await _unitOfWork.UsuarioRepository.FirstOrDefaultAsync(f => f.Nome.Equals(request.Nome));
 
                 if (usuarioBanco != null)
                     throw new CadastroDomainException("Usuário já existe.");
@@ -90,7 +90,7 @@ namespace PlataformService.Service.Service
                     Ativo = request.Ativo,
                 };
 
-                await _unitOfWork.UsuarioRepository.Add(usuarioBanco);
+                await _unitOfWork.UsuarioRepository.AddAsync(usuarioBanco);
                 await _unitOfWork.CommitAsync();
             }
             catch (Exception ex)
@@ -110,12 +110,12 @@ namespace PlataformService.Service.Service
 
                 var usuarioOrigem = _mapper.Map<UsuarioModel>(request);
 
-                var usuarioBanco = await _unitOfWork.UsuarioRepository.FirstOrDefault(f => f.Id == request.Id);
+                var usuarioBanco = await _unitOfWork.UsuarioRepository.FirstOrDefaultAsync(f => f.Id == request.Id);
 
                 if (usuarioBanco == null)
                     throw new CadastroDomainException($"Usuário não encontrado ${request.Id}.");
 
-                var duplicate = await _unitOfWork.UsuarioRepository.FirstOrDefault(f => f.Nome.Equals(request.Nome) && f.Id != request.Id);
+                var duplicate = await _unitOfWork.UsuarioRepository.FirstOrDefaultAsync(f => f.Nome.Equals(request.Nome) && f.Id != request.Id);
 
                 if (duplicate != null)
                     throw new CadastroDomainException("Usuário com o nome informado já existe.");

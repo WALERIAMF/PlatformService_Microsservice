@@ -11,7 +11,8 @@ namespace PlataformService.Domain.Interface.IService
         Task DesativarPermissaoAsync(Guid id);
         Task<List<PermissaoDto>> GetPermissaoAsync();
         Task<PermissaoDto> GetPermissaoByIdAsync(Guid id);
+        Task<PermissaoDto> GetPermissaoByNameAsync(string name);
         Task PostPermissaoAsync(PermissaoPostRequest request);
-        Task PutColaboradorAsync(PermissaoPutRequest request);
+        Task PutPermissaoAsync(PermissaoPutRequest request);
     }
 }

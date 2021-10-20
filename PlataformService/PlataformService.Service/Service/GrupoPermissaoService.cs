@@ -19,13 +19,13 @@ namespace PlataformService.Service.Service
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IPublishEndpoint _publishEndpoint;
 
-        public GrupoPermissaoService(IUnitOfWork unitOfWork, IMapper mapper, IPublishEndpoint publishEndpoint)
+
+        public GrupoPermissaoService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _publishEndpoint = publishEndpoint;
+
         }
 
         public async Task DesativarGrupoPermissaoAsync(Guid id)
@@ -33,7 +33,7 @@ namespace PlataformService.Service.Service
             try
             {
                 #region remover
-                var grupoPermissaoOrigem = await _unitOfWork.GrupoPermissaoRepository.FirstOrDefault(f => f.Id == id);
+                var grupoPermissaoOrigem = await _unitOfWork.GrupoPermissaoRepository.FirstOrDefaultAsync(f => f.Id == id);
 
                 if (grupoPermissaoOrigem == null)
                     throw new CadastroDomainException($"Colaborador não encontrado {id}.");
@@ -54,7 +54,7 @@ namespace PlataformService.Service.Service
         {
             try
             {
-                var grupoPermissaoOrigem = await _unitOfWork.GrupoPermissaoRepository.GetWhere(a => a.Ativo != null || !a.Ativo);
+                var grupoPermissaoOrigem = await _unitOfWork.GrupoPermissaoRepository.GetWhereAsync(a => a.Ativo != null || !a.Ativo);
                 var orderGrupoPermissaoOrigem = grupoPermissaoOrigem.OrderBy(n => n.Nome).ToList();
                 var data = _mapper.Map<List<GrupoPermissaoDto>>(orderGrupoPermissaoOrigem);
 
@@ -72,7 +72,23 @@ namespace PlataformService.Service.Service
         {
             try
             {
-                var cliente = await _unitOfWork.GrupoPermissaoRepository.FirstOrDefault(f => f.Id == id);
+                var cliente = await _unitOfWork.GrupoPermissaoRepository.FirstOrDefaultAsync(f => f.Id == id);
+                var data = _mapper.Map<GrupoPermissaoDto>(cliente);
+
+                return data;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public async Task<GrupoPermissaoDto> GetGrupoPermissaoByNameAsync(string name)
+        {
+            try
+            {
+                var cliente = await _unitOfWork.GrupoPermissaoRepository.FirstOrDefaultAsync(f => f.Nome.Contains(name));
                 var data = _mapper.Map<GrupoPermissaoDto>(cliente);
 
                 return data;
@@ -92,7 +108,7 @@ namespace PlataformService.Service.Service
                 if (!resultadoValidacao.IsValid)
                     throw new InvalidOperationException(string.Join("\n", resultadoValidacao.Errors.Select(s => s)));
 
-                var grupoPermissaoBanco = await _unitOfWork.GrupoPermissaoRepository.FirstOrDefault(f => f.Nome.Equals(request.Nome));
+                var grupoPermissaoBanco = await _unitOfWork.GrupoPermissaoRepository.FirstOrDefaultAsync(f => f.Nome.Equals(request.Nome));
 
                 if (grupoPermissaoBanco != null)
                     throw new CadastroDomainException("Grupo Permissao já existe.");
@@ -104,7 +120,7 @@ namespace PlataformService.Service.Service
                     PermissoesList = request.PermissoesList
                 };
 
-                await _unitOfWork.GrupoPermissaoRepository.Add(grupoPermissaoBanco);
+                await _unitOfWork.GrupoPermissaoRepository.AddAsync(grupoPermissaoBanco);
                 await _unitOfWork.CommitAsync();
             }
             catch (Exception ex)
@@ -124,12 +140,12 @@ namespace PlataformService.Service.Service
 
                 var grupoPermissaoOrigem = _mapper.Map<GrupoPermissaoModel>(request);
 
-                var grupoPermissaoBanco = await _unitOfWork.GrupoPermissaoRepository.FirstOrDefault(f => f.Id == request.Id);
+                var grupoPermissaoBanco = await _unitOfWork.GrupoPermissaoRepository.FirstOrDefaultAsync(f => f.Id == request.Id);
 
                 if (grupoPermissaoBanco == null)
                     throw new CadastroDomainException($"O Grupo Permissao não foi encontrada ${request.Id}.");
 
-                var duplicate = await _unitOfWork.GrupoPermissaoRepository.FirstOrDefault(f => f.Nome.Equals(request.Nome) && f.Id != request.Id);
+                var duplicate = await _unitOfWork.GrupoPermissaoRepository.FirstOrDefaultAsync(f => f.Nome.Equals(request.Nome) && f.Id != request.Id);
 
                 if (duplicate != null)
                     throw new CadastroDomainException("O Grupo Permissao com o nome informado já existe.");

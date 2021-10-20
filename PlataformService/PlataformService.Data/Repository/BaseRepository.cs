@@ -28,15 +28,13 @@ namespace PlataformService.Data.Repository
             });
             _mapper = config.CreateMapper();
         }
-
-        public async Task Add(MODEL model)
+        public async Task AddAsync(MODEL model)
         {
             var entity = _mapper.Map<ENTITY>(model);
 
             await _db.Set<ENTITY>().AddAsync(entity);
         }
-
-        public async Task<MODEL> GetById(Guid id)
+        public async Task<MODEL> GetByIdAsync(Guid id)
         {
             var entity = await _db.Set<ENTITY>().FindAsync(id);
             if (entity != null)
@@ -46,14 +44,24 @@ namespace PlataformService.Data.Repository
 
             return _mapper.Map<MODEL>(entity);
         }
-        public async Task<IEnumerable<MODEL>> GetAll()
+        public async Task<MODEL> GetByNameAsync(string name)
+        {
+            var entity = await _db.Set<ENTITY>().FindAsync(name);
+            if (entity != null)
+            {
+                _db.Entry(entity).State = EntityState.Detached;
+            }
+
+            return _mapper.Map<MODEL>(entity);
+        }
+        public async Task<IEnumerable<MODEL>> GetAllAsync()
         {
 
             var entities = await _db.Set<ENTITY>().ToListAsync();
 
             return _mapper.Map<List<MODEL>>(entities);
         }
-        public async Task<IEnumerable<MODEL>> GetWhere(Expression<Func<MODEL, bool>> predicate)
+        public async Task<IEnumerable<MODEL>> GetWhereAsync(Expression<Func<MODEL, bool>> predicate)
         {
             var entities = await _db.Set<ENTITY>().ProjectTo<MODEL>(_mapper.ConfigurationProvider).AsNoTracking()
                 .Where(predicate).AsNoTracking().ToListAsync();
@@ -67,25 +75,21 @@ namespace PlataformService.Data.Repository
             // In case AsNoTracking is used
             _db.Entry(entity).State = EntityState.Modified;
         }
-
         public void Remove(MODEL model)
         {
             var entity = _mapper.Map<ENTITY>(model);
             _db.Set<ENTITY>().Remove(entity);
         }
-
-        public async Task<int> CountAll()
+        public async Task<int> CountAllAsync()
         {
             return await _db.Set<ENTITY>().CountAsync();
         }
-
-        public async Task<int> CountWhere(Expression<Func<MODEL, bool>> predicate)
+        public async Task<int> CountWhereAsync(Expression<Func<MODEL, bool>> predicate)
         {
             var where = _mapper.Map<Expression<Func<ENTITY, bool>>>(predicate);
             return await _db.Set<ENTITY>().CountAsync(where);
         }
-
-        public async Task<MODEL> FirstOrDefault(Expression<Func<MODEL, bool>> predicate)
+        public async Task<MODEL> FirstOrDefaultAsync(Expression<Func<MODEL, bool>> predicate)
         {
             var model = await _db.Set<ENTITY>().ProjectTo<MODEL>(_mapper.ConfigurationProvider).AsNoTracking()
                 .Where(predicate).AsNoTracking().FirstOrDefaultAsync();

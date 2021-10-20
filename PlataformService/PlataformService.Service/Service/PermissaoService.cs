@@ -28,7 +28,7 @@ namespace PlataformService.Service.Service
         {
             try
             {
-                var permissaoOrigem = await _unitOfWork.PermissaoRepository.FirstOrDefault(f => f.Id == id);
+                var permissaoOrigem = await _unitOfWork.PermissaoRepository.FirstOrDefaultAsync(f => f.Id == id);
 
                 if (permissaoOrigem == null)
                     throw new CadastroDomainException($"Permissao não encontrado {id}.");
@@ -46,7 +46,7 @@ namespace PlataformService.Service.Service
 
         public async Task<List<PermissaoDto>> GetPermissaoAsync()
         {
-            var permissaoOrigem = await _unitOfWork.PermissaoRepository.GetWhere(a => a.Ativo != null || !a.Ativo);
+            var permissaoOrigem = await _unitOfWork.PermissaoRepository.GetWhereAsync(a => a.Ativo != null || !a.Ativo);
             var orderPermissaoOrigem = permissaoOrigem.OrderBy(n => n.Nome).ToList();
             var data = _mapper.Map<List<PermissaoDto>>(orderPermissaoOrigem);
 
@@ -57,7 +57,23 @@ namespace PlataformService.Service.Service
         {
             try
             {
-                var permissaoOrigem = await _unitOfWork.PermissaoRepository.FirstOrDefault(f => f.Id == id);
+                var permissaoOrigem = await _unitOfWork.PermissaoRepository.FirstOrDefaultAsync(f => f.Id == id);
+
+                var data = _mapper.Map<PermissaoDto>(permissaoOrigem);
+                return data;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<PermissaoDto> GetPermissaoByNameAsync(string name)
+        {
+            try
+            {
+                var permissaoOrigem = await _unitOfWork.PermissaoRepository.FirstOrDefaultAsync(f => f.Nome.Contains(name));
 
                 var data = _mapper.Map<PermissaoDto>(permissaoOrigem);
                 return data;
@@ -77,7 +93,7 @@ namespace PlataformService.Service.Service
                 if (!resultadoValidacao.IsValid)
                     throw new InvalidOperationException(string.Join("\n", resultadoValidacao.Errors.Select(s => s)));
 
-                var permissaoBanco = await _unitOfWork.PermissaoRepository.FirstOrDefault(f => f.Nome.Equals(request.Nome));
+                var permissaoBanco = await _unitOfWork.PermissaoRepository.FirstOrDefaultAsync(f => f.Nome.Equals(request.Nome));
 
                 if (permissaoBanco != null)
                     throw new CadastroDomainException("Permissão já existe.");
@@ -92,7 +108,7 @@ namespace PlataformService.Service.Service
 
                 };
 
-                await _unitOfWork.PermissaoRepository.Add(permissaoBanco);
+                await _unitOfWork.PermissaoRepository.AddAsync(permissaoBanco);
                 await _unitOfWork.CommitAsync();
             }
             catch (Exception ex)
@@ -102,7 +118,7 @@ namespace PlataformService.Service.Service
             }
         }
 
-        public async Task PutColaboradorAsync(PermissaoPutRequest request)
+        public async Task PutPermissaoAsync(PermissaoPutRequest request)
         {
             try
             {
@@ -112,12 +128,12 @@ namespace PlataformService.Service.Service
 
                 var permissaoOrigem = _mapper.Map<PermissaoModel>(request);
 
-                var permissaoBanco = await _unitOfWork.PermissaoRepository.FirstOrDefault(f => f.Id == request.Id);
+                var permissaoBanco = await _unitOfWork.PermissaoRepository.FirstOrDefaultAsync(f => f.Id == request.Id);
 
                 if (permissaoBanco == null)
                     throw new CadastroDomainException($"A permissão não foi encontrada ${request.Id}.");
 
-                var duplicate = await _unitOfWork.PermissaoRepository.FirstOrDefault(f => f.Nome.Equals(request.Nome) && f.Id != request.Id);
+                var duplicate = await _unitOfWork.PermissaoRepository.FirstOrDefaultAsync(f => f.Nome.Equals(request.Nome) && f.Id != request.Id);
 
                 if (duplicate != null)
                     throw new CadastroDomainException("A permissão com o nome informado já existe.");

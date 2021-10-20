@@ -11,9 +11,5 @@ namespace PlataformService.Domain.Model
         public string Senha { get; set; }
         public List<GrupoPermissaoDto> GruposPermissaoList { get; set; }
 
-        public static implicit operator UsuarioModel(UsuarioModel v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

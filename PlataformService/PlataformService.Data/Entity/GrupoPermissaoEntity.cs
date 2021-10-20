@@ -6,6 +6,6 @@ namespace PlataformService.Data.Entity
     public class GrupoPermissaoEntity : BaseEntity
     {
         public string Nome { get; set; }
-        //public IList<PermissaoModel> PermissoesIdList { get; set; }
+        public IList<PermissaoModel> PermissoesIdList { get; set; }
     }
 }

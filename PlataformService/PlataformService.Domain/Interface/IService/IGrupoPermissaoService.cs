@@ -2,8 +2,6 @@
 using PlataformService.Domain.Request;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PlataformService.Domain.Interface.IService
@@ -15,5 +13,6 @@ namespace PlataformService.Domain.Interface.IService
         Task DesativarGrupoPermissaoAsync(Guid id);
         Task<List<GrupoPermissaoDto>> GetGrupoPermissaoAsync();
         Task<GrupoPermissaoDto> GetGrupoPermissaoByIdAsync(Guid id);
+        Task<GrupoPermissaoDto> GetGrupoPermissaoByNameAsync(string name);
     }
 }

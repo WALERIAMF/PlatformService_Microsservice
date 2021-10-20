@@ -35,7 +35,7 @@ namespace PlataformService.Service.Service
             try
             {
 
-                var platformOrigem = await _unitOfWork.PlatformRepository.GetWhere(g => g.Ativo != null || !g.Ativo);
+                var platformOrigem = await _unitOfWork.PlatformRepository.GetWhereAsync(g => g.Ativo != null || !g.Ativo);
 
                 var orderedPlatformOrigem = platformOrigem.OrderBy(o => o.Name).ToList();
 
@@ -62,7 +62,7 @@ namespace PlataformService.Service.Service
         {
             try
             {
-                var platformOrigem = await _unitOfWork.PlatformRepository.FirstOrDefault(f => f.Id == id);
+                var platformOrigem = await _unitOfWork.PlatformRepository.FirstOrDefaultAsync(f => f.Id == id);
 
                 var data = _mapper.Map<PlatformDto>(platformOrigem);
 
@@ -92,7 +92,7 @@ namespace PlataformService.Service.Service
                 if (!resultadoValidacao.IsValid)
                     throw new InvalidOperationException(string.Join("\n", resultadoValidacao.Errors.Select(s => s)));
 
-                var platformBanco = await _unitOfWork.PlatformRepository.FirstOrDefault(f => f.Name.Equals(request.Name));
+                var platformBanco = await _unitOfWork.PlatformRepository.FirstOrDefaultAsync(f => f.Name.Equals(request.Name));
 
                 if (platformBanco != null)
                     throw new CadastroDomainException("Plataforma já existe.");
@@ -105,7 +105,7 @@ namespace PlataformService.Service.Service
                     Cost = request.Cost
                 };
 
-                await _unitOfWork.PlatformRepository.Add(platformBanco);
+                await _unitOfWork.PlatformRepository.AddAsync(platformBanco);
                 await _unitOfWork.CommitAsync();
             }
             catch (Exception ex)
@@ -133,12 +133,12 @@ namespace PlataformService.Service.Service
 
                 var platformOrigem = _mapper.Map<PlatformModel>(request);
 
-                var platformBanco = await _unitOfWork.PlatformRepository.FirstOrDefault(f => f.Id == request.Id);
+                var platformBanco = await _unitOfWork.PlatformRepository.FirstOrDefaultAsync(f => f.Id == request.Id);
 
                 if (platformBanco == null)
                     throw new CadastroDomainException($"A plataforma não foi encontrada ${request.Id}.");
 
-                var duplicate = await _unitOfWork.PlatformRepository.FirstOrDefault(f => f.Name.Equals(request.Name) && f.Id != request.Id);
+                var duplicate = await _unitOfWork.PlatformRepository.FirstOrDefaultAsync(f => f.Name.Equals(request.Name) && f.Id != request.Id);
 
                 if (duplicate != null)
                     throw new CadastroDomainException("A plataforma com o nome informado já existe.");
@@ -170,7 +170,7 @@ namespace PlataformService.Service.Service
             try
             {
                 #region remover
-                var platformOrigem = await _unitOfWork.PlatformRepository.FirstOrDefault(f => f.Id == id);
+                var platformOrigem = await _unitOfWork.PlatformRepository.FirstOrDefaultAsync(f => f.Id == id);
 
                 if (platformOrigem == null)
                     throw new CadastroDomainException($"Plataforma não encontrada {id}.");
