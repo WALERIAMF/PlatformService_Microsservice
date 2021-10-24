@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
-using MassTransit;
-using Newtonsoft.Json;
 using PlataformService.Domain.Dto;
-using PlataformService.Domain.Enum;
 using PlataformService.Domain.Exceptions;
 using PlataformService.Domain.Interface.IService;
 using PlataformService.Domain.Interface.UnitOfWork;
@@ -29,7 +26,7 @@ namespace PlataformService.Service.Service
             //_publishEndpoint = publishEndpoint;
         }
 
-      
+
         public async Task<List<PlatformDto>> GetPlatform()
         {
             try

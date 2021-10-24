@@ -21,6 +21,11 @@ namespace PlataformService.Data.Mapping
                     .IsRequired()
                     .HasColumnType("varchar");
 
+            builder.Property(p => p.Cpf)
+                    .HasPrecision(11)
+                    .IsRequired()
+                    .HasColumnType("varchar"); 
+
             builder.Property(p => p.DataCriacao)
                       .HasColumnType("datetime2")
                       .HasPrecision(0);
